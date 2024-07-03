@@ -4,9 +4,29 @@ Copyright © 2024 Samantha Wu
 package main
 
 import (
-	"github.com/syywu/geojson-merger/cmd"
+	"flag"
+	"log"
+
+	"github.com/syywu/geojson-merger/geojson"
 )
 
 func main() {
-	cmd.Execute()
+	var outputFilename string
+	flag.StringVar(&outputFilename, "output", "output.geojson", "output geojson filename")
+	flag.Parse()
+
+	inputFiles := flag.Args()
+	if inputFiles == nil {
+		log.Fatal("input files are required")
+	}
+
+	fc, err := geojson.Merge(inputFiles)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = geojson.Output(flag.Arg(0), outputFilename, fc)
+	if err != nil {
+		log.Fatal(err)
+	}
 }

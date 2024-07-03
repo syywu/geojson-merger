@@ -1,8 +1,9 @@
-package cmd
+package geojson
 
 import (
 	"encoding/json"
 	"os"
+	"path/filepath"
 
 	"github.com/paulmach/orb/geojson"
 )
@@ -26,4 +27,18 @@ func Merge(filenames []string) (*geojson.FeatureCollection, error) {
 	}
 
 	return fc, nil
+}
+
+func Output(path string, outputFilename string, fc *geojson.FeatureCollection) error {
+	b, err := json.Marshal(fc)
+	if err != nil {
+		return err
+	}
+
+	err = os.WriteFile(filepath.Join(filepath.Dir(path), outputFilename), b, 0644)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
