@@ -16,7 +16,7 @@ func main() {
 	flag.Parse()
 
 	inputFiles := flag.Args()
-	if inputFiles == nil {
+	if len(inputFiles) < 1 {
 		log.Fatal("input files are required")
 	}
 
