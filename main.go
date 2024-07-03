@@ -1,6 +1,3 @@
-/*
-Copyright © 2024 Samantha Wu
-*/
 package main
 
 import (
